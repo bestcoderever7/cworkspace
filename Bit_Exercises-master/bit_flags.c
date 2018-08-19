@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 #define GREETING_FLAG  0x01 // prints a greeting
 #define GOODBYE_FLAG   0x02 // prints "Goodbye"
@@ -11,11 +13,24 @@
 
 void handleFlag(unsigned char flag){
     //1. Comeplete the handleFlag method so that it checks the bits of the flag parameter,
-    //   and performs the repective action if that bit is set.
-
+    //   and performs the respective action if that bit is set.
+    if(flag & GREETING_FLAG) {
+        printf("Hi!\n");
+    }
+    else if(flag & GOODBYE_FLAG) {
+        printf("Goodbye!\n");
+    }
+    else if(flag & RANDOM_FLAG){
+        printf("%i", 5);
+        printf("\n");
+    }
+    else if(flag & FACT_FLAG){
+        printf("Fun fact: This code was written in C\n");
+    }
 }
 
 int main(int argc, char** argv){
+    srand(time(0));
     // TESTS    
     printf("CALL #1:\n");
     //should print only a greeting

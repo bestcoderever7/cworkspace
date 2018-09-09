@@ -3,7 +3,7 @@
 #include "string.h"
 
 int main(int argc, char** argv){
-    
+    printf("%s", "Start\n");
     // #1
     String s1("taco");
     ASSERT(4 == s1.length());
@@ -25,7 +25,7 @@ int main(int argc, char** argv){
     String s3(" burritos");
     s2.append(s3);
     ASSERT(s2.equals("tacos and burritos"));
-
+    printf("%s", "Hi");
 
 
     return 0;

@@ -9,4 +9,4 @@ if(X) { \
 }else{ \
     printf("FAILED\n"); \
     return 1;\
-}
+} 

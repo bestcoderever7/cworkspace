@@ -17,8 +17,9 @@ private:
     // returns the number of chars (bytes) before v points to the
     // null termination character '\0';
     unsigned int getLengthOfCharString(const char* v) {
+        //printf("%s", "getLength");
         int num = 0;
-        while(v != '\0'){
+        while(*v != '\0'){
             v++;
             num++;
         }
@@ -32,6 +33,7 @@ public:
     // the char pointer should point to a new char array that is the size of the buffer
     // the character count is 0
     String() {
+        //printf("%s", "const1");
         buffer = INITIAL_BUFFER_SIZE;
         firstChar = new char[buffer];
         chars = 0;
@@ -42,7 +44,7 @@ public:
     // referenced by the char pointer
     String(const char* v){
         
-
+        //printf("%s", "const2");
         // 4a: get the length of v
         int length = getLengthOfCharString(v);
         // 4b: if that length is less than the initial buffer size,
@@ -73,6 +75,7 @@ public:
     // This constructor copies the passed in string to this string. Since it is
     // being passed by reference, we have access to its private member variables.
     String(const String& s){
+        //printf("%s", "const3");
         // 5a: Initialize the char count and buffer size variables to match those of s.
         this->chars = s.chars;
         this->buffer = s.buffer;
@@ -89,7 +92,7 @@ public:
     // The destructor should check if the char pointer is null.
     // If not, delete the array it points to.
     ~String(){
-        if(firstChar == null) {
+        if(firstChar == 0) {
             delete[] firstChar;
         }
     }
@@ -97,58 +100,71 @@ public:
     // 7. 
     // This function appends the contents of v to this string.
     void append(const char* v){
+        //printf("%s", "append1");
         // 7a:
         // First, check to make sure that adding the characters
         // to this string won't overflow the buffer.
         // If it will, then we need to reallocate new memory for the string.
         // Don't forget to clean up the old memory and to update the character count.
-        if((getLengthOfCharString(firstChar) + getLengthOfCharString(v)) > buffer) {
-            char* newArr = new char[getLengthOfCharString(firstChar) * 10];
-            for(int i = 0; i < getLengthOfCharString(firstChar); i++) {
+        int length = getLengthOfCharString(firstChar);
+        int lengthV = getLengthOfCharString(v);
+        if((length + lengthV) > buffer) {
+            char* newArr = new char[length * 10];
+            for(int i = 0; i < length; i++) {
                 newArr[i] = firstChar[i];
             }
             delete[] firstChar;
             firstChar = newArr;
         }
-        for(int i = getLengthOfCharString(firstChar); i < getLengthOfCharString(v); i++) {
-            firstChar[i] = v[i];
+        for(int i = 0; i < lengthV; i++) {
+            firstChar[length + i] = v[i];
         }
+        //printf("%s", firstChar);
+        //printf("%s", "\n");
+    }
 
     // 8. 
     // This function appends the contents of str to this string.
     void append(const String& str){
-        if((getLengthOfCharString(firstChar) + getLengthOfCharString(str.firstChar)) > buffer) {
-            char* newArr = new char[getLengthOfCharString(firstChar) * 10];
-            for(int i = 0; i < getLengthOfCharString(firstChar); i++) {
+        int length = getLengthOfCharString(firstChar);
+        int lengthS = getLengthOfCharString(str.firstChar);
+        //printf("%s", "append2");
+        if((length + lengthS) > buffer) {
+            char* newArr = new char[length * 10];
+            for(int i = 0; i < length; i++) {
                 newArr[i] = firstChar[i];
             }
             delete[] firstChar;
             firstChar = newArr;
         }
-        for(int i = getLengthOfCharString(firstChar); i < getLengthOfCharString(str.firstChar); i++) {
-            firstChar[i] = str.firstChar[i];
+        for(int i = 0; i < lengthS; i++) {
+            firstChar[length + i] = str.firstChar[i];
         }
     }
 
     //9. getter function for the length of the string (total chars).
     unsigned int length(){
+        //printf("%s", "length");
         return chars;
     }
 
     //10. getter function that returns the location of the char array
     const char* getCharArray(){
+        //printf("%s", "charArray");
         return firstChar;
     }
 
     //11. function that returns true if v contains all the same characters
     //    as this string
     bool equals(const char* v){
-        if(getLengthOfCharString(v) != getLengthOfCharString(firstChar))
+        //printf("%s", "\nequals1\n");
+        int lengthV = getLengthOfCharString(v);
+        if(lengthV != getLengthOfCharString(firstChar))
         {
             return false;
         }
         else { 
-            for(int i = 0; i < getLengthOfCharString(v); i++) {
+            for(int i = 0; i < lengthV; i++) {
                 if(firstChar[i] != v[i]) {
                     return false;
                 }
@@ -160,7 +176,28 @@ public:
     //12. function that returns true if s contains all the same characters
     //    as this string
     bool equals(const String& s){
-        return false;
+        //printf("%s", "\nequals2\n");
+        int lengthS = getLengthOfCharString(s.firstChar);
+        if(lengthS != getLengthOfCharString(firstChar))
+        {
+            return false;
+        }
+        else { 
+            for(int i = 0; i < lengthS; i++) {
+                if(firstChar[i] != s.firstChar[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    String operator+ (String v) {
+        String n(*this);
+        n.append(v);
+        return n;
     }
 
+    void operator+= (String v) {
+        this.append(v);
+    }
 };

@@ -40,5 +40,51 @@ int main(int argc, char** argv){
     vec2 v4(5, 13);
     ASSERT(v2.equals(v4));
 
+    //TEST# 10
+    vec2 v5(10, 10);
+    vec2 v6(0, 0);
+    v6 = v5;
+    ASSERT(v6.equals(v5));
+
+    //TEST# 11
+    ASSERT(v6 != v4);
+
+    //TEST# 12
+    vec2 v7 = v6 + v5;
+    vec2 v8(20, 20);
+    ASSERT(v7 == v8);
+
+    //Test# 13
+    vec2 v9(0, 0);
+    ASSERT(v9 == v6 - v5);
+
+    //Test# 14
+    v9 = vec2(100, 100);
+    ASSERT(v9 == v6 * v5);
+
+    //Test# 15
+    v9 = vec2(1, 1);
+    ASSERT(v9 == v6 / v5);
+
+    //Test #16
+    v9 += v6;
+    v5 = vec2(11, 11);
+    ASSERT(v5 == v9);
+
+    //Test #17
+    v = vec2(5, 5);
+    v -= vec2(2, 4);
+    ASSERT(v == vec2(3, 1));
+
+    //Test #18
+    v = vec2(5, 5);
+    v *= vec2(2, 4);
+    ASSERT(v == vec2(10, 20));
+
+    //Test #19
+    v = vec2(8, 6);
+    v /= vec2(2, 3);
+    ASSERT(v == vec2(4, 2));
+
     return 0;
 }

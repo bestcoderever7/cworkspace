@@ -32,6 +32,46 @@ struct vec2{
     bool equals(vec2 v){
         return this->x == v.x && this->y == v.y;
     }
+    vec2 operator+ (vec2 v) {
+        vec2 u(this->x + v.x, this->y + v.y);
+        return u;
+    }
+    void operator+= (vec2 v) {
+        add(v);
+    }
+    vec2 operator- (vec2 v) {
+        vec2 u(this->x - v.x, this->y - v.y);
+        return u;
+    }
+    void operator-= (vec2 v) {
+        sub(v);
+    }
+    vec2 operator* (vec2 v) {
+        vec2 u(this->x * v.x, this->y * v.y);
+        return u;
+    }
+    void operator*= (vec2 v) {
+        mul(v);
+    }
+    vec2 operator/ (vec2 v) {
+        vec2 u(this->x / v.x, this->y / v.y);
+        return u;
+    }
+    void operator/= (vec2 v) {
+        div(v);
+    }
+    bool operator== (vec2 v) {
+        if(this->x == v.x && this->y == v.y) {
+            return true;
+        }
+        return false;
+    }
+    bool operator!= (vec2 v) {
+        if(this->x == v.x && this->y == v.y) {
+            return false;
+        }
+        return true;
+    }
 };
 
 int main2(int argc, char** argv){
